@@ -1,7 +1,8 @@
 const AU = 149.6e6 * 1000;
 const G = 6.67428e-11;
-const SCALE = 250 / AU;
-const TIMESTEP = 3600 * 24;
+const SCALE = 500 / AU;
+const TIMESTEP = 3600 * 6;
+//const TIMESTEP = 3600 * 24;
 
 class CelestialBody {
   constructor(
@@ -89,8 +90,8 @@ window.onload = function () {
     0,
     0,
     0,
-    300,
-    "FF0",
+    350,
+    "#FD0",
     1.98892 * 10 ** 30,
     document.getElementById("sol"),
     bodies
@@ -102,7 +103,7 @@ window.onload = function () {
     0,
     29.783 * 1000,
     160,
-    "4C0",
+    "#4C0",
     5.9742 * 10 ** 24,
     document.getElementById("earth"),
     bodies
@@ -114,7 +115,7 @@ window.onload = function () {
     0,
     24.077 * 1000,
     120,
-    "4C0",
+    "#A40",
     6.39 * 10 ** 23,
     document.getElementById("mars"),
     bodies
@@ -126,7 +127,7 @@ window.onload = function () {
     0,
     -47.4 * 1000,
     80,
-    "4C0",
+    "#999",
     3.3 * 10 ** 23,
     document.getElementById("mercury"),
     bodies
@@ -138,25 +139,15 @@ window.onload = function () {
     0,
     -35.02 * 1000,
     140,
-    "4C0",
+    "#DB9",
     4.8685 * 10 ** 24,
     document.getElementById("venus"),
     bodies
   );
 
   setInterval(function () {
-  
-    console.log("Working");
-    /*
-    body.element.style.left =
-    body.x * SCALE + window.innerWidth / 2 - body.radius / 4;
-    body.element.style.top =
-    body.y * SCALE + window.innerHeight / 2 - body.radius / 4;
-    console.log(document.width);
-    */
     for (const body of bodies) {
       body.update_position(bodies);
-      console.log(body.name + body.x + body.y);
       body.element.style.left =
         body.x * SCALE + window.innerWidth / 2 - body.radius / 4;
       body.element.style.top =
