@@ -214,10 +214,10 @@ window.onload = function () {
   );
   const ship = new Ship(
     "Spaceship",
-    AU,
+    0.7 *AU,
     0,
     0,
-    0,
+    -35.02 * 1000,
     0,
     "#FFF",
     4.8685 * 10 ** 24,
@@ -244,8 +244,7 @@ window.onload = function () {
       body.element.style.top =
         body.y * SCALE + window.innerHeight / 2 - body.radius / 4;
     }
-    ship.x += ship.xvel * TIMESTEP;
-    ship.y += ship.yvel * TIMESTEP;
+    ship.update_position(bodies);
 
     if (keys["ArrowLeft"] || keys["a"]) {
       ship.rotate(LEFT);
@@ -264,10 +263,10 @@ window.onload = function () {
       ship.image.src="../assets/images/spaceship_no_flame.png";
     }
 
-    ship.element.style.left =
-      ship.x * SCALE + window.innerWidth / 2 - (25 / 2);
-    ship.element.style.top =
-      ship.y * SCALE + window.innerHeight / 2 - (88/2);
+    // ship.element.style.left =
+    //   ship.x * SCALE + window.innerWidth / 2 - (25 / 2);
+    // ship.element.style.top =
+    //   ship.y * SCALE + window.innerHeight / 2 - (88/2);
     ship.element.style.transform = `rotate(${ship.angle}deg)`;
   }, 17);
 };
