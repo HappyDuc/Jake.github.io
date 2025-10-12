@@ -3,6 +3,8 @@ const G = 6.67428e-11;
 const SCALE = 500 / AU;
 //const TIMESTEP = 3600 * 6;
 const TIMESTEP = 3600 * 24;
+const RIGHT = true;
+const LEFT = false;
 
 class CelestialBody {
   constructor(
@@ -100,6 +102,15 @@ class Ship extends CelestialBody {
     isShip,
     bodyCollection);
     this.image = document.getElementById("shipImage");
+    this.angle = 0;
+    }
+    rotate(dir) {
+      this.angle += (dir ? 2 : -2);
+      if (this.angle < 0) {
+        this.angle = 360 - this.angle;
+      } else if (this.angle > 360) {
+        this.angle = this.angle - 360
+      }
     }
 }
 
@@ -184,47 +195,27 @@ window.onload = function () {
   );
   const ship = new Ship(
     "Spaceship",
+    AU,
     0,
     0,
-    0,
-    0,
+    -35.02 * 1000,
     0,
     "#FFF",
-    0,
+    4.8685 * 10 ** 24,
     this.document.getElementById("spaceship"),
     true,
     bodies
   )
-  
-  document.addEventListener("keydown", (event) => {
-    const keyPressed = event.key;
-    switch (keyPressed) {
-      case "ArrowUp":
-        ship.image.src="../assets/images/spaceship_with_flame.png";
-      case "ArrowRight":
-        break;
-      case "ArrowLeft":
-        break;
-    
-      default:
-        break;
-    }
-  })
 
+  const keys = {};
+  document.addEventListener("keydown", (event) => {
+    keys[event.key] = true;
+  });
+
+  // Listen for key releases
   document.addEventListener("keyup", (event) => {
-    const keyPressed = event.key;
-    switch (keyPressed) {
-      case "ArrowUp":
-        ship.image.src="../assets/images/spaceship_no_flame.png";
-      case "ArrowRight":
-        break;
-      case "ArrowLeft":
-        break;
-    
-      default:
-        break;
-    }
-  })
+    keys[event.key] = false;
+  });
 
   setInterval(function () {
     for (const body of bodies) {
@@ -234,5 +225,26 @@ window.onload = function () {
       body.element.style.top =
         body.y * SCALE + window.innerHeight / 2 - body.radius / 4;
     }
+
+    if (keys["ArrowLeft"] || keys["a"]) {
+      ship.rotate(LEFT);
+    }
+    if (keys["ArrowRight"] || keys["d"]) {
+      ship.rotate(RIGHT);
+    }
+    if (keys["ArrowUp"] || keys["w"]) {
+      ship.image.src="../assets/images/spaceship_with_flame.png";
+      var vector = Math.tan(ship.angle);
+      console.log(vector);
+      ship.y = ship.y + (SCALE * vector);
+      ship.x = ship.x + (SCALE / vector);
+    } else {
+      ship.image.src="../assets/images/spaceship_no_flame.png";
+    }
+    ship.element.style.left =
+      ship.x * SCALE + window.innerWidth / 2 - (25 / 2);
+    ship.element.style.top =
+      ship.y * SCALE + window.innerHeight / 2 - (88/2);
+    ship.element.style.transform = `rotate(${ship.angle}deg)`;
   }, 17);
 };
