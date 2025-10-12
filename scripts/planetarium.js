@@ -30,12 +30,12 @@ class CelestialBody {
     this.mass = mass;
     this.element = element;
     this.isShip = isShip;
-    // if (!isShip) {
+    if (!isShip) {
       this.element.style.backgroundColor = this.colour;
       this.element.style.width = radius / 2;
       this.element.style.height = radius / 2;
       bodyCollection.push(this);
-    // }
+    }
   }
 
   attraction(other) {
@@ -214,10 +214,10 @@ window.onload = function () {
   );
   const ship = new Ship(
     "Spaceship",
-    0.7 *AU,
+    AU,
     0,
     0,
-    -35.02 * 1000,
+    0,
     0,
     "#FFF",
     4.8685 * 10 ** 24,
@@ -244,7 +244,8 @@ window.onload = function () {
       body.element.style.top =
         body.y * SCALE + window.innerHeight / 2 - body.radius / 4;
     }
-    ship.update_position(bodies);
+    ship.x += ship.xvel * TIMESTEP;
+    ship.y += ship.yvel * TIMESTEP;
 
     if (keys["ArrowLeft"] || keys["a"]) {
       ship.rotate(LEFT);
@@ -263,10 +264,10 @@ window.onload = function () {
       ship.image.src="../assets/images/spaceship_no_flame.png";
     }
 
-    // ship.element.style.left =
-    //   ship.x * SCALE + window.innerWidth / 2 - (25 / 2);
-    // ship.element.style.top =
-    //   ship.y * SCALE + window.innerHeight / 2 - (88/2);
+    ship.element.style.left =
+      ship.x * SCALE + window.innerWidth / 2 - (25 / 2);
+    ship.element.style.top =
+      ship.y * SCALE + window.innerHeight / 2 - (88/2);
     ship.element.style.transform = `rotate(${ship.angle}deg)`;
   }, 17);
 };
