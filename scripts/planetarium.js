@@ -30,12 +30,12 @@ class CelestialBody {
     this.mass = mass;
     this.element = element;
     this.isShip = isShip;
-    if (!isShip) {
+    // if (!isShip) {
       this.element.style.backgroundColor = this.colour;
       this.element.style.width = radius / 2;
       this.element.style.height = radius / 2;
       bodyCollection.push(this);
-    }
+    // }
   }
 
   attraction(other) {
@@ -112,6 +112,25 @@ class Ship extends CelestialBody {
         this.angle = this.angle - 360
       }
     }
+
+    update_position(planets) {
+    let total_fx = 0;
+    let total_fy = 0;
+
+    // Find the Sun
+    const sun = planets.find(p => p.name === "Sol");
+    if (sun) {
+      const [fx, fy] = this.attraction(sun);
+      total_fx += fx;
+      total_fy += fy;
+    }
+
+    // Update velocity and position
+    this.xvel += (total_fx / this.mass) * TIMESTEP;
+    this.yvel += (total_fy / this.mass) * TIMESTEP;
+    this.x += this.xvel * TIMESTEP;
+    this.y += this.yvel * TIMESTEP;
+  }
 }
 
 window.onload = function () {
@@ -198,7 +217,7 @@ window.onload = function () {
     AU,
     0,
     0,
-    -35.02 * 1000,
+    0,
     0,
     "#FFF",
     4.8685 * 10 ** 24,
@@ -225,6 +244,8 @@ window.onload = function () {
       body.element.style.top =
         body.y * SCALE + window.innerHeight / 2 - body.radius / 4;
     }
+    ship.x += ship.xvel * TIMESTEP;
+    ship.y += ship.yvel * TIMESTEP;
 
     if (keys["ArrowLeft"] || keys["a"]) {
       ship.rotate(LEFT);
@@ -234,13 +255,15 @@ window.onload = function () {
     }
     if (keys["ArrowUp"] || keys["w"]) {
       ship.image.src="../assets/images/spaceship_with_flame.png";
-      var vector = Math.tan(ship.angle);
-      console.log(vector);
-      ship.y = ship.y + (SCALE * vector);
-      ship.x = ship.x + (SCALE / vector);
+      var theta = (90-ship.angle) * Math.PI / 180;
+      var dx = Math.cos(theta);
+      var dy = Math.sin(theta);
+      ship.xvel += (100 * dx);
+      ship.yvel -= (100 * dy);
     } else {
       ship.image.src="../assets/images/spaceship_no_flame.png";
     }
+
     ship.element.style.left =
       ship.x * SCALE + window.innerWidth / 2 - (25 / 2);
     ship.element.style.top =
