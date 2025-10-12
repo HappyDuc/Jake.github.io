@@ -1,8 +1,8 @@
 const AU = 149.6e6 * 1000;
 const G = 6.67428e-11;
 const SCALE = 500 / AU;
-const TIMESTEP = 3600 * 6;
-//const TIMESTEP = 3600 * 24;
+//const TIMESTEP = 3600 * 6;
+const TIMESTEP = 3600 * 24;
 
 class CelestialBody {
   constructor(
@@ -15,6 +15,7 @@ class CelestialBody {
     colour,
     mass,
     element,
+    isShip,
     bodyCollection
   ) {
     this.name = name;
@@ -26,10 +27,13 @@ class CelestialBody {
     this.colour = colour;
     this.mass = mass;
     this.element = element;
-    this.element.style.backgroundColor = this.colour;
-    this.element.style.width = radius / 2;
-    this.element.style.height = radius / 2;
-    bodyCollection.push(this);
+    this.isShip = isShip;
+    if (!isShip) {
+      this.element.style.backgroundColor = this.colour;
+      this.element.style.width = radius / 2;
+      this.element.style.height = radius / 2;
+      bodyCollection.push(this);
+    }
   }
 
   attraction(other) {
@@ -70,6 +74,35 @@ class CelestialBody {
   }
 }
 
+class Ship extends CelestialBody {
+  constructor(
+    name,
+    x,
+    y,
+    xvel,
+    yvel,
+    radius,
+    colour,
+    mass,
+    element,
+    isShip,
+    bodyCollection
+  ) {
+    super(name,
+    x,
+    y,
+    xvel,
+    yvel,
+    radius,
+    colour,
+    mass,
+    element,
+    isShip,
+    bodyCollection);
+    this.image = document.getElementById("shipImage");
+    }
+}
+
 window.onload = function () {
   bodies = [];
   /*
@@ -94,6 +127,7 @@ window.onload = function () {
     "#FD0",
     1.98892 * 10 ** 30,
     document.getElementById("sol"),
+    false,
     bodies
   );
   const earth = new CelestialBody(
@@ -106,6 +140,7 @@ window.onload = function () {
     "#4C0",
     5.9742 * 10 ** 24,
     document.getElementById("earth"),
+    false,
     bodies
   );
   const mars = new CelestialBody(
@@ -118,6 +153,7 @@ window.onload = function () {
     "#A40",
     6.39 * 10 ** 23,
     document.getElementById("mars"),
+    false,
     bodies
   );
   const mercury = new CelestialBody(
@@ -130,6 +166,7 @@ window.onload = function () {
     "#999",
     3.3 * 10 ** 23,
     document.getElementById("mercury"),
+    false,
     bodies
   );
   const venus = new CelestialBody(
@@ -142,8 +179,52 @@ window.onload = function () {
     "#DB9",
     4.8685 * 10 ** 24,
     document.getElementById("venus"),
+    false,
     bodies
   );
+  const ship = new Ship(
+    "Spaceship",
+    0,
+    0,
+    0,
+    0,
+    0,
+    "#FFF",
+    0,
+    this.document.getElementById("spaceship"),
+    true,
+    bodies
+  )
+  
+  document.addEventListener("keydown", (event) => {
+    const keyPressed = event.key;
+    switch (keyPressed) {
+      case "ArrowUp":
+        ship.image.src="../assets/images/spaceship_with_flame.png";
+      case "ArrowRight":
+        break;
+      case "ArrowLeft":
+        break;
+    
+      default:
+        break;
+    }
+  })
+
+  document.addEventListener("keyup", (event) => {
+    const keyPressed = event.key;
+    switch (keyPressed) {
+      case "ArrowUp":
+        ship.image.src="../assets/images/spaceship_no_flame.png";
+      case "ArrowRight":
+        break;
+      case "ArrowLeft":
+        break;
+    
+      default:
+        break;
+    }
+  })
 
   setInterval(function () {
     for (const body of bodies) {
@@ -153,5 +234,5 @@ window.onload = function () {
       body.element.style.top =
         body.y * SCALE + window.innerHeight / 2 - body.radius / 4;
     }
-  }, 10);
+  }, 17);
 };
