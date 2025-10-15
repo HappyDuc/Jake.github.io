@@ -1,0 +1,101 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #434e6f;
+  font-family: Lucida Sans Typewriter,Lucida Typewriter,monospace; 
+}
+
+header, footer {
+  flex-shrink: 0;
+  text-align: center;
+  padding: 1rem 0;
+  z-index: 1;
+}
+
+header {
+    background: black;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.container h1 {
+  font-size: 3rem;
+  margin: 0;
+  color: #8ab8c4;
+}
+
+.container p {
+  margin-top: 1rem;
+  font-size: 1.25rem;
+  color: #d4efff;
+}
+
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  display: inline-block;
+  margin: 0 1rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: #0077cc;
+}
+
+.floatingLink {
+  position: absolute;
+  border-radius: 25px;
+  /* box-shadow: rgba(10, 200, 70, 0.8) 0 0 10px 10px; */
+}
+
+.floatingLink a {
+  padding: 1vh 2vh 1vh 2vh;
+  text-decoration: none;
+  color: #000;
+}
+
+#planetarium {
+  background-color: rgb(10, 200, 70);
+  box-shadow: 0 0 10px 10px rgb(10, 200, 70);
+}
+
+#contact {
+  background-color: rgb(200, 130, 10);
+  box-shadow: 0 0 10px 10px rgb(200, 130, 10);
+}
+
+.revealedArea {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(
+        circle 50vh at 50% 50%, transparent 10%, rgba(0, 0, 0, 0.98)
+    );
+    pointer-events: none;
+}
