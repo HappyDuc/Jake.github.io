@@ -20,7 +20,7 @@ header, footer {
 }
 
 header {
-    background: black;
+  background: black;
 }
 
 main {
@@ -38,6 +38,8 @@ main {
   text-align: center;
   pointer-events: none;
   z-index: 1;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .container h1 {
@@ -53,20 +55,33 @@ main {
 }
 
 
-nav ul {
+/* nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: inline-flex;
 }
 
 nav li {
   display: inline-block;
   margin: 0 1rem;
+  
+} */
+
+nav {
+  display: flex;
 }
 
 nav a {
+  margin-right: 1rem;
+  padding: 1rem;
   text-decoration: none;
-  color: #0077cc;
+  background-color: #BBB;
+  border-radius: 25%;
+}
+
+nav a.leftmost {
+  margin-left: auto;
 }
 
 .floatingLink {
