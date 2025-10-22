@@ -39,25 +39,11 @@ class FloatingLink {
     this.y += this.dy;
   }
 }
-
-window.onload = function () {
-  const floatingLinks = [];
-
-  const elements = document.getElementsByClassName("floatingLink");
-  for (var i = 0; i < elements.length; i++) {
-    floatingLinks.push(new FloatingLink(elements[i].id));
-  }
-
-  //   setInterval(function () {
-  //     for (const floatingLink of floatingLinks) {
-  //       floatingLink.updatePosition();
-  //       floatingLink.element.style.left = floatingLink.x;
-  //       console.log(floatingLink.x);
-  //       floatingLink.element.style.top = floatingLink.y;
-  //     }
-  //   }, 100);
-
-  function animate() {
+const floatingLinks = [];
+function animate() {
+    if (!fast) {
+      return
+    }
     for (const floatingLink of floatingLinks) {
       floatingLink.updatePosition();
       floatingLink.element.style.left = floatingLink.x + "px";
@@ -66,5 +52,38 @@ window.onload = function () {
     requestAnimationFrame(animate);
   }
 
+function toggleLight() {
+  const lightToggle = document.getElementById("lightToggle");
+  const newVal = !(lightToggle.value === "true");
+  lightToggle.value = newVal;
+  if (newVal) {
+    document.getElementById("lightImage").src = "../assets/images/bulb_on.svg";
+    document.getElementById("revealedArea").style.display = "none";
+  } else {
+    document.getElementById("lightImage").src = "../assets/images/bulb_off.svg";
+    document.getElementById("revealedArea").style.display = "block";
+  }
+}
+
+var fast = true;
+function toggleSpeed() {
+  const speedToggle = document.getElementById("speedToggle");
+  const newVal = !(speedToggle.value === "true");
+  speedToggle.value = newVal;
+  if (newVal) {
+    document.getElementById("speedImage").src = "../assets/images/hare.svg";
+    fast = true;
+    animate();
+  } else {
+    document.getElementById("speedImage").src = "../assets/images/snail.svg";
+    fast = false;
+  }
+}
+
+window.onload = function () {
+  const elements = document.getElementsByClassName("floatingLink");
+  for (var i = 0; i < elements.length; i++) {
+    floatingLinks.push(new FloatingLink(elements[i].id));
+  }
   animate();
 };

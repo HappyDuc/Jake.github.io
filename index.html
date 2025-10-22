@@ -11,8 +11,12 @@
   <body>
     <header>
       <nav>
-          <a href="#" class="leftmost"><img src="./assets/images/bulb_off.svg" height="50" width="50" draggable="false"></a>
-          <a href="#"><img src="./assets/images/snail.svg", height="50" width="50" draggable="false"></a>
+          <button id="lightToggle" value="false" onclick="toggleLight()" class="leftmost">
+            <img id="lightImage" src="./assets/images/bulb_off.svg" height="50" width="50" draggable="false">
+          </button>
+          <button id="speedToggle" value="true" onclick="toggleSpeed()">
+            <img id="speedImage" src="./assets/images/hare.svg", height="50" width="50" draggable="false">
+          </button>
       </nav>
     </header>
 
@@ -28,7 +32,7 @@
         <a href="./">Contact</a>
       </div>
 
-      <div class="revealedArea"></div>
+      <div id="revealedArea" class="revealedArea"></div>
     </main>
 
     <footer></footer>

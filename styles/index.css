@@ -72,7 +72,7 @@ nav {
   display: flex;
 }
 
-nav a {
+nav button {
   margin-right: 1rem;
   padding: 1rem;
   text-decoration: none;
@@ -80,7 +80,7 @@ nav a {
   border-radius: 25%;
 }
 
-nav a.leftmost {
+nav button.leftmost {
   margin-left: auto;
 }
 
