@@ -254,14 +254,14 @@ window.onload = function () {
       ship.rotate(RIGHT);
     }
     if (keys["ArrowUp"] || keys["w"]) {
-      ship.image.src="../assets/images/spaceship_with_flame.png";
+      ship.image.src="../docs/assets/images/spaceship_with_flame.png";
       var theta = (90-ship.angle) * Math.PI / 180;
       var dx = Math.cos(theta);
       var dy = Math.sin(theta);
       ship.xvel += (100 * dx);
       ship.yvel -= (100 * dy);
     } else {
-      ship.image.src="../assets/images/spaceship_no_flame.png";
+      ship.image.src="../docs/assets/images/spaceship_no_flame.png";
     }
 
     ship.element.style.left =
