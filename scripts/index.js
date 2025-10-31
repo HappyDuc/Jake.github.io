@@ -57,10 +57,10 @@ function toggleLight() {
   const newVal = !(lightToggle.value === "true");
   lightToggle.value = newVal;
   if (newVal) {
-    document.getElementById("lightImage").src = "../docs/assets/images/bulb_on.svg";
+    document.getElementById("lightImage").src = "docs/assets/images/bulb_on.svg";
     document.getElementById("revealedArea").style.display = "none";
   } else {
-    document.getElementById("lightImage").src = "../docs/assets/images/bulb_off.svg";
+    document.getElementById("lightImage").src = "docs/assets/images/bulb_off.svg";
     document.getElementById("revealedArea").style.display = "block";
   }
 }
@@ -71,11 +71,11 @@ function toggleSpeed() {
   const newVal = !(speedToggle.value === "true");
   speedToggle.value = newVal;
   if (newVal) {
-    document.getElementById("speedImage").src = "../docs/assets/images/hare.svg";
+    document.getElementById("speedImage").src = "docs/assets/images/hare.svg";
     fast = true;
     animate();
   } else {
-    document.getElementById("speedImage").src = "../docs/assets/images/snail.svg";
+    document.getElementById("speedImage").src = "docs/assets/images/snail.svg";
     fast = false;
   }
 }
