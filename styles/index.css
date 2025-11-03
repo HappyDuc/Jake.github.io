@@ -12,15 +12,15 @@ body {
   font-family: Lucida Sans Typewriter,Lucida Typewriter,monospace; 
 }
 
-header, footer {
+header {
   flex-shrink: 0;
   text-align: center;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
   z-index: 1;
 }
 
 header {
-  background: black;
+  background: #202020;
 }
 
 main {
